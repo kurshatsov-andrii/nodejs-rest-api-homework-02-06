@@ -5,13 +5,15 @@ const getAll = async (req, res, next) => {
 	const { page = 1, limit = 10, favorite } = req.query
 	const skip = (page - 1) * limit
 	const { _id: owner } = req.user
-	let query = { owner }
-	if (favorite) {
-		query = { owner, favorite: true }
-	}
-	const result = await Contacts.find(query, '', { skip, limit })
-
-	res.json(result)
+	const result = await Contacts.find(
+		favorite ? { owner, favorite } : { owner },
+		'-createdAt -updatedAt',
+		{
+			skip,
+			limit,
+		}
+	).populate('owner', 'owner email subscription')
+	res.status(200).json(result)
 }
 
 const getById = async (req, res, next) => {
