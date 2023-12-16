@@ -29,7 +29,7 @@ router.patch('/', authenticate, ctrl.updateSubscription)
 router.patch(
 	'/avatars',
 	authenticate,
-	upload.single('avatarURL'),
+	upload.single('avatar'),
 	jimp,
 	ctrl.updateAvatars
 )
