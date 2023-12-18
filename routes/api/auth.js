@@ -1,13 +1,13 @@
 const express = require('express')
-const ctrl = require('../controllers/auth')
+const ctrl = require('../../controllers/auth')
 const {
 	emptyBody,
 	validateBody,
 	authenticate,
 	upload,
 	jimp,
-} = require('../middlewares')
-const { schemas } = require('../models/user')
+} = require('../../middlewares')
+const { schemas } = require('../../models/user')
 const router = express.Router()
 
 router.post(
