@@ -7,7 +7,7 @@ const {
 	upload,
 	jimp,
 } = require('../../middlewares')
-const { schemas } = require('../../models/user')
+const schemas = require('../../schemas/userSchemas')
 const router = express.Router()
 
 router.post(
@@ -15,6 +15,13 @@ router.post(
 	emptyBody(),
 	validateBody(schemas.registerSchema),
 	ctrl.register
+)
+router.get('/verify/:verificationToken', ctrl.verify)
+router.post(
+	'/verify',
+	emptyBody('missing required field email'),
+	validateBody(schemas.emailSchema),
+	ctrl.resendVerifyEmail
 )
 router.post(
 	'/login',
@@ -33,5 +40,6 @@ router.patch(
 	jimp,
 	ctrl.updateAvatars
 )
+router.delete('/', authenticate, ctrl.deleteUser)
 
 module.exports = router

@@ -7,7 +7,7 @@ const {
 	emptyBody,
 	authenticate,
 } = require('../../middlewares')
-const { schemas } = require('../../models/contact')
+const schemas = require('../../schemas/contactSchemas')
 
 router.get('/', authenticate, ctrl.getAll)
 
